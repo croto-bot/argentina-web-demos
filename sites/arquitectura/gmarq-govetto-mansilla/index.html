@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GMARQ — Govetto Mansilla Arquitectos | Estudio de Arquitectura en Buenos Aires</title>
+<meta name="description" content="Estudio GMARQ — 25 años diseñando arquitectura residencial de autor en Buenos Aires y Patagonia. Publicados en ArchDaily, Archello y Architizer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --color-bg: #0f0f0f;
+  --color-surface: #1a1a1a;
+  --color-surface-light: #2a2a2a;
+  --color-text: #f5f5f0;
+  --color-text-muted: #a0a0a0;
+  --color-accent: #c9a96e;
+  --color-accent-hover: #b89a5f;
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 1.5rem;
+  --space-lg: 2.5rem;
+  --space-xl: 4rem;
+  --space-2xl: 6rem;
+  --radius: 4px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+.container {
+  width: 92%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 1000;
+  padding: var(--space-sm) 0;
+  transition: background 0.3s, backdrop-filter 0.3s;
+}
+
+.header.scrolled {
+  background: rgba(15,15,15,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  color: var(--color-text);
+}
+
+.logo span {
+  color: var(--color-accent);
+}
+
+.nav-desktop { display: none; }
+
+.nav-desktop a {
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-text-muted);
+  margin-left: var(--space-lg);
+  transition: color 0.2s;
+}
+
+.nav-desktop a:hover { color: var(--color-text); }
+
+.cta-header {
+  display: none;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  transition: background 0.2s;
+}
+
+.cta-header:hover { background: var(--color-accent-hover); }
+
+/* Mobile menu */
+.mobile-menu-btn {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25rem;
+}
+
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--color-bg);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-lg);
+  transform: translateX(100%);
+  transition: transform 0.3s ease;
+}
+
+.mobile-nav.open { transform: translateX(0); }
+
+.mobile-nav a {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-text);
+}
+
+.mobile-nav .close-btn {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-end;
+  padding-bottom: var(--space-2xl);
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background: url('assets/hero.jpg') center/cover no-repeat;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(15,15,15,0.3) 0%, rgba(15,15,15,0.85) 70%, rgba(15,15,15,0.98) 100%);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-tag {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--color-accent);
+  margin-bottom: var(--space-md);
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 6vw, 4.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: var(--space-md);
+  max-width: 800px;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: var(--color-text-muted);
+  max-width: 560px;
+  margin-bottom: var(--space-lg);
+  line-height: 1.7;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.9rem 1.8rem;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  border-radius: var(--radius);
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.btn:active { transform: scale(0.98); }
+
+.btn-primary {
+  background: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.btn-primary:hover { background: var(--color-accent-hover); }
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-text);
+  border: 1px solid rgba(255,255,255,0.25);
+}
+
+.btn-outline:hover {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.4);
+}
+
+/* Section commons */
+.section {
+  padding: var(--space-2xl) 0;
+}
+
+.section-alt {
+  background: var(--color-surface);
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
+}
+
+.section h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400;
+  margin-bottom: var(--space-lg);
+}
+
+/* About */
+.about-grid {
+  display: grid;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg);
+  margin-top: var(--space-xl);
+}
+
+.stat-number {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: var(--color-accent);
+  line-height: 1;
+  margin-bottom: var(--space-xs);
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Services */
+.services-grid {
+  display: grid;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.service-card {
+  background: var(--color-surface-light);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  padding: var(--space-lg);
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.service-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201,169,110,0.3);
+}
+
+.service-card h3 {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: var(--space-sm);
+}
+
+.service-card p {
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.service-num {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  letter-spacing: 2px;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+/* Works */
+.works-grid {
+  display: grid;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+.work-card {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  aspect-ratio: 4/3;
+}
+
+.work-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.work-card:hover img { transform: scale(1.05); }
+
+.work-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15,15,15,0.9) 0%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: var(--space-lg);
+}
+
+.work-overlay h3 {
+  font-family: var(--font-heading);
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.work-overlay span {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* Recognition */
+.press-grid {
+  display: grid;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+.press-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-md);
+  padding: var(--space-md);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: var(--radius);
+  background: var(--color-surface-light);
+}
+
+.press-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background: rgba(201,169,110,0.15);
+  border-radius: var(--radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+}
+
+.press-item h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.press-item p {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+}
+
+/* Contact */
+.contact-grid {
+  display: grid;
+  gap: var(--space-xl);
+  margin-top: var(--space-xl);
+}
+
+.contact-info h3 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  margin-bottom: var(--space-md);
+}
+
+.contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  color: var(--color-text-muted);
+}
+
+.contact-item strong {
+  color: var(--color-text);
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+.contact-item a {
+  color: var(--color-accent);
+  transition: opacity 0.2s;
+}
+
+.contact-item a:hover { opacity: 0.8; }
+
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+.map-wrapper {
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  aspect-ratio: 16/10;
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: grayscale(1) invert(1) contrast(0.9);
+}
+
+/* Footer */
+.footer {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: var(--space-xl) 0 var(--space-lg);
+}
+
+.footer-top {
+  display: grid;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-xl);
+}
+
+.footer-brand .logo {
+  margin-bottom: var(--space-sm);
+}
+
+.footer-brand p {
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  max-width: 320px;
+  line-height: 1.7;
+}
+
+.footer-links h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-md);
+}
+
+.footer-links a {
+  display: block;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-xs);
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--color-text); }
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  align-items: center;
+  text-align: center;
+}
+
+.footer-bottom p {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+}
+
+.social-links {
+  display: flex;
+  gap: var(--space-sm);
+}
+
+.social-links a {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.social-links a:hover {
+  background: var(--color-surface-light);
+  border-color: var(--color-accent);
+}
+
+/* Sticky mobile bar */
+.sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-bg);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: var(--space-sm);
+  display: flex;
+  gap: var(--space-sm);
+  z-index: 1000;
+}
+
+.sticky-bar .btn { flex: 1; padding: 0.8rem; font-size: 0.8rem; }
+
+/* Scroll top */
+.scroll-top {
+  position: fixed;
+  bottom: 80px;
+  right: var(--space-sm);
+  width: 44px;
+  height: 44px;
+  background: var(--color-surface-light);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, background 0.2s;
+  z-index: 999;
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top:hover { background: var(--color-accent); color: var(--color-bg); }
+
+/* Desktop */
+@media (min-width: 768px) {
+  .nav-desktop { display: flex; align-items: center; }
+  .cta-header { display: inline-flex; }
+  .mobile-menu-btn { display: none; }
+  .sticky-bar { display: none; }
+  .scroll-top { bottom: var(--space-lg); }
+
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-2xl);
+  }
+
+  .services-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .works-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .works-grid .work-card:first-child {
+    grid-column: span 2;
+    aspect-ratio: 21/9;
+  }
+
+  .press-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .contact-grid {
+    grid-template-columns: 1fr 1.2fr;
+    align-items: start;
+  }
+
+  .footer-top {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+  }
+
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+</style>
+</head>
+<body>
+
+<header class="header" id="header">
+  <div class="container header-inner">
+    <a href="#" class="logo">GM<span>ARQ</span></a>
+    <nav class="nav-desktop">
+      <a href="#nosotros">Nosotros</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#obras">Obras</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a href="https://wa.me/5491145551710" class="cta-header" target="_blank" rel="noopener">Consultar</a>
+    <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Abrir menú">&#9776;</button>
+  </div>
+</header>
+
+<nav class="mobile-nav" id="mobileNav">
+  <button class="close-btn" onclick="toggleMenu()" aria-label="Cerrar menú">&times;</button>
+  <a href="#nosotros" onclick="toggleMenu()">Nosotros</a>
+  <a href="#servicios" onclick="toggleMenu()">Servicios</a>
+  <a href="#obras" onclick="toggleMenu()">Obras</a>
+  <a href="#contacto" onclick="toggleMenu()">Contacto</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="container hero-content">
+    <span class="hero-tag">Estudio de Arquitectura — Buenos Aires</span>
+    <h1>Arquitectura que dialoga con el paisaje</h1>
+    <p>Más de 25 años diseñando espacios residenciales de autor en Buenos Aires y la Patagonia. Cada proyecto es una respuesta única al entorno, la luz y la forma de habitar.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5491145551710" class="btn btn-primary" target="_blank" rel="noopener">
+        <span>&#x1F4AC;</span> Consultar por WhatsApp
+      </a>
+      <a href="tel:+541145551710" class="btn btn-outline">
+        <span>&#x260E;</span> Llamar al estudio
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="nosotros">
+  <div class="container">
+    <div class="about-grid">
+      <div>
+        <span class="section-label">Nosotros</span>
+        <h2>Govetto Mansilla Arquitectos</h2>
+        <div class="about-text">
+          <p>Fundado en 1999, GMARQ es un estudio de arquitectura con sede en el barrio de Colegiales, CABA. Durante más de dos décadas hemos desarrollado una sólida trayectoria en proyectos residenciales de alta calidad, tanto en barrios cerrados de Buenos Aires como en los paisajes únicos de la Patagonia.</p>
+          <p>Nuestro trabajo ha sido publicado en los medios de arquitectura más prestigiosos del mundo, incluyendo ArchDaily, Archello y Architizer. Contamos con un equipo de 8 profesionales comprometidos con una arquitectura contemporánea, funcional y sensible al contexto.</p>
+        </div>
+        <div class="stats">
+          <div>
+            <div class="stat-number">25+</div>
+            <div class="stat-label">Años de trayectoria</div>
+          </div>
+          <div>
+            <div class="stat-number">8</div>
+            <div class="stat-label">Profesionales</div>
+          </div>
+          <div>
+            <div class="stat-number">40K</div>
+            <div class="stat-label">Seguidores</div>
+          </div>
+          <div>
+            <div class="stat-number">3</div>
+            <div class="stat-label">Medios internacionales</div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <img src="assets/project2.jpg" alt="Interior de vivienda de autor diseñada por GMARQ" loading="lazy" style="border-radius:4px;">
+        <img src="assets/project5.jpg" alt="Fachada moderna de residencia en Buenos Aires" loading="lazy" style="border-radius:4px;">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="servicios">
+  <div class="container">
+    <span class="section-label">Servicios</span>
+    <h2>Lo que hacemos</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <span class="service-num">01</span>
+        <h3>Diseño Arquitectónico</h3>
+        <p>Proyectos residenciales unifamiliares desde el concepto hasta la dirección de obra. Abordamos cada encargo como una pieza única, considerando el sitio, la orientación solar y las necesidades específicas de cada familia.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">02</span>
+        <h3>Interiores &amp; Paisajismo</h3>
+        <p>Integración del diseño interior con el exterior. Selección de materiales, mobiliario y vegetación para lograr una experiencia espacial coherente y sensorial.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">03</span>
+        <h3>Ampliaciones &amp; Remodelaciones</h3>
+        <p>Reinterpretación de espacios existentes con criterio contemporáneo. Ampliaciones que respetan la identidad original mientras introducen luz, conectividad y funcionalidad moderna.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">04</span>
+        <h3>Dirección de Obra</h3>
+        <p>Seguimiento técnico y artístico durante la construcción para garantizar la fidelidad al proyecto original, la calidad de los acabados y la optimización de recursos.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">05</span>
+        <h3>Proyectos en Patagonia</h3>
+        <p>Especialización en arquitectura para entornos patagónicos. Diseño climaticamente responsable que aprovecha los recursos del lugar y minimiza el impacto ambiental.</p>
+      </div>
+      <div class="service-card">
+        <span class="service-num">06</span>
+        <h3>Regularización &amp; Habilitaciones</h3>
+        <p>Gestión integral de trámites municipales, planos de regularización y habilitaciones comerciales ante los organismos de la Ciudad de Buenos Aires y la Provincia.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="obras">
+  <div class="container">
+    <span class="section-label">Obras seleccionadas</span>
+    <h2>Proyectos publicados internacionalmente</h2>
+    <div class="works-grid">
+      <div class="work-card">
+        <img src="assets/project1.jpg" alt="Casa A — Proyecto residencial en Buenos Aires" loading="lazy">
+        <div class="work-overlay">
+          <h3>Casa A</h3>
+          <span>Buenos Aires, Argentina</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="assets/project3.jpg" alt="Casa GJ — Residencia en barrio cerrado" loading="lazy">
+        <div class="work-overlay">
+          <h3>Casa GJ</h3>
+          <span>Barrio cerrado, Buenos Aires</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="assets/project4.jpg" alt="Casa S2 — Vivienda unifamiliar moderna" loading="lazy">
+        <div class="work-overlay">
+          <h3>Casa S2</h3>
+          <span>Buenos Aires, Argentina</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <img src="assets/project6.jpg" alt="Casa N — Proyecto en entorno natural" loading="lazy">
+        <div class="work-overlay">
+          <h3>Casa N</h3>
+          <span>Patagonia, Argentina</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-alt" id="reconocimientos">
+  <div class="container">
+    <span class="section-label">Reconocimientos</span>
+    <h2>Presencia internacional</h2>
+    <div class="press-grid">
+      <div class="press-item">
+        <div class="press-icon">&#128240;</div>
+        <div>
+          <h4>ArchDaily</h4>
+          <p>Proyectos publicados bajo el título "A House / Estudio GMARQ". Máxima credencial de visibilidad en arquitectura mundial.</p>
+        </div>
+      </div>
+      <div class="press-item">
+        <div class="press-icon">&#127970;</div>
+        <div>
+          <h4>Archello</h4>
+          <p>Múltiples proyectos documentados: Casa GJ, Casa S2, Casa AH, Casa AC y Casa N. Galerías de alta resolución y ficha técnica.</p>
+        </div>
+      </div>
+      <div class="press-item">
+        <div class="press-icon">&#127942;</div>
+        <div>
+          <h4>Architizer</h4>
+          <p>Listados como firma de referencia en Buenos Aires y Patagonia dentro del directorio internacional de estudios.</p>
+        </div>
+      </div>
+      <div class="press-item">
+        <div class="press-icon">&#128247;</div>
+        <div>
+          <h4>Instagram @gmarq_estudio</h4>
+          <p>Comunidad de más de 40.000 seguidores con proyectos fotográficos de alta calidad y procesos de diseño.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacto">
+  <div class="container">
+    <span class="section-label">Contacto</span>
+    <h2>Empecemos a conversar</h2>
+    <div class="contact-grid">
+      <div class="contact-info">
+        <h3>Estudio GMARQ</h3>
+        <div class="contact-item">
+          <div>
+            <strong>Dirección</strong>
+            Olleros 2652, Colegiales<br>CABA, Buenos Aires, Argentina
+          </div>
+        </div>
+        <div class="contact-item">
+          <div>
+            <strong>Teléfono</strong>
+            <a href="tel:+541145551710">+54 11 4555-1710</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:estudio@gmarq.com.ar">estudio@gmarq.com.ar</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div>
+            <strong>Horario de atención</strong>
+            Lunes a Viernes: 9:00 – 18:00 hs
+          </div>
+        </div>
+        <div class="contact-actions">
+          <a href="https://wa.me/5491145551710" class="btn btn-primary" target="_blank" rel="noopener">
+            <span>&#x1F4AC;</span> WhatsApp
+          </a>
+          <a href="tel:+541145551710" class="btn btn-outline">
+            <span>&#x260E;</span> Llamar
+          </a>
+        </div>
+      </div>
+      <div class="map-wrapper">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3285.536739023935!2d-58.45162368477092!3d-34.57042898046782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcb5c5e0f8c7e1%3A0x9e8f5e5e5e5e5e5e!2sOlleros%202652%2C%20C1426%20CDAB%2C%20Buenos%20Aires%2C%20Argentina!5e0!3m2!1ses!2sus!4v1600000000000!5m2!1ses!2sus"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Ubicación del estudio GMARQ en Colegiales, CABA"
+        ></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">GM<span>ARQ</span></div>
+        <p>Govetto Mansilla Arquitectos. Diseñando espacios residenciales de autor desde 1999 en Buenos Aires y la Patagonia.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Navegación</h4>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#obras">Obras</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <div class="footer-links">
+        <h4>Contacto</h4>
+        <a href="tel:+541145551710">+54 11 4555-1710</a>
+        <a href="mailto:estudio@gmarq.com.ar">estudio@gmarq.com.ar</a>
+        <a href="https://gmarq.com.ar" target="_blank" rel="noopener">gmarq.com.ar</a>
+      </div>
+      <div class="footer-links">
+        <h4>Redes</h4>
+        <a href="https://instagram.com/gmarq_estudio" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.archdaily.com/office/estudio-gmarq" target="_blank" rel="noopener">ArchDaily</a>
+        <a href="https://archello.com/brand/estudio-gmarq-govetto-mansilla-arquitectos" target="_blank" rel="noopener">Archello</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p> Estudio GMARQ — Govetto Mansilla Arquitectos. Todos los derechos reservados.</p>
+      <div class="social-links">
+        <a href="https://instagram.com/gmarq_estudio" target="_blank" rel="noopener" aria-label="Instagram">&#128247;</a>
+        <a href="https://wa.me/5491145551710" target="_blank" rel="noopener" aria-label="WhatsApp">&#x1F4AC;</a>
+        <a href="mailto:estudio@gmarq.com.ar" aria-label="Email">&#x2709;</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky-bar">
+  <a href="https://wa.me/5491145551710" class="btn btn-primary" target="_blank" rel="noopener">
+    <span>&#x1F4AC;</span> WhatsApp
+  </a>
+  <a href="tel:+541145551710" class="btn btn-outline">
+    <span>&#x260E;</span> Llamar
+  </a>
+</div>
+
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Volver arriba">&#8593;</button>
+
+<script>
+function toggleMenu() {
+  document.getElementById('mobileNav').classList.toggle('open');
+}
+
+const header = document.getElementById('header');
+const scrollTop = document.getElementById('scrollTop');
+
+window.addEventListener('scroll', () => {
+  if (window.scrollY > 60) {
+    header.classList.add('scrolled');
+  } else {
+    header.classList.remove('scrolled');
+  }
+  if (window.scrollY > 600) {
+    scrollTop.classList.add('visible');
+  } else {
+    scrollTop.classList.remove('visible');
+  }
+});
+</script>
+
+</body>
+</html>
