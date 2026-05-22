@@ -1,0 +1,1320 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>estudio.te — Arquitectura, Mobiliario y Experiencia en Villa Crespo</title>
+  <meta name="description" content="Estudio de arquitectura y diseño de mobiliario en Villa Crespo, Buenos Aires. Showroom y café en Thames 937. Proyectos residenciales y comerciales desde 2016.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-bg: #FAF8F5;
+      --color-bg-warm: #F5F0E8;
+      --color-surface: #FFFFFF;
+      --color-text: #1A1A1A;
+      --color-text-muted: #6B6560;
+      --color-accent: #C25E3A;
+      --color-accent-hover: #D46E4A;
+      --color-accent-soft: #F0E0D6;
+      --color-dark: #2C2420;
+      --color-border: #E8E2DA;
+      --font-heading: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --space-xs: 0.5rem;
+      --space-sm: 1rem;
+      --space-md: 1.5rem;
+      --space-lg: 3rem;
+      --space-xl: 5rem;
+      --space-2xl: 8rem;
+      --radius: 4px;
+      --radius-lg: 12px;
+      --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.65;
+      font-size: 16px;
+      overflow-x: hidden;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-on-scroll {
+      opacity: 0;
+    }
+
+    .animate-on-scroll.is-visible {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-on-scroll.delay-1.is-visible { animation-delay: 0.1s; }
+    .animate-on-scroll.delay-2.is-visible { animation-delay: 0.2s; }
+    .animate-on-scroll.delay-3.is-visible { animation-delay: 0.3s; }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem var(--space-md);
+      transition: background-color 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .nav.scrolled {
+      background-color: rgba(250, 248, 245, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 20px rgba(0,0,0,0.05);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+    }
+
+    .logo span {
+      color: var(--color-accent);
+    }
+
+    .nav-links {
+      display: none;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+      transition: color var(--transition);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-accent);
+    }
+
+    .nav-cta {
+      display: none;
+      background-color: var(--color-accent);
+      color: #fff;
+      padding: 0.625rem 1.25rem;
+      border-radius: var(--radius);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      transition: background-color var(--transition), transform var(--transition);
+    }
+
+    .nav-cta:hover {
+      background-color: var(--color-accent-hover);
+      transform: translateY(-1px);
+    }
+
+    @media (min-width: 768px) {
+      .nav-links { display: flex; }
+      .nav-cta { display: inline-block; }
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      padding: 6rem var(--space-md) var(--space-xl);
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 0;
+    }
+
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.15;
+      filter: grayscale(30%);
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(250,248,245,0.3) 0%, rgba(250,248,245,0.85) 60%, var(--color-bg) 100%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-md);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .hero-tag::before {
+      content: '';
+      width: 24px;
+      height: 1px;
+      background-color: var(--color-accent);
+    }
+
+    .hero-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2.75rem, 8vw, 5.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      margin-bottom: var(--space-md);
+      animation: fadeInUp 0.8s ease 0.1s both;
+    }
+
+    .hero-title em {
+      font-style: italic;
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    .hero-subtitle {
+      font-size: clamp(1.0625rem, 2.5vw, 1.25rem);
+      color: var(--color-text-muted);
+      max-width: 520px;
+      margin-bottom: var(--space-lg);
+      line-height: 1.7;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .hero-cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm);
+      animation: fadeInUp 0.8s ease 0.3s both;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      border-radius: var(--radius);
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all var(--transition);
+      border: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--color-accent);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--color-accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(194, 94, 58, 0.25);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--color-text);
+      border: 1.5px solid var(--color-border);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--color-border);
+      animation: fadeInUp 0.8s ease 0.5s both;
+    }
+
+    .stat-number {
+      font-family: var(--font-heading);
+      font-size: 2.25rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      margin-top: 0.375rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    @media (min-width: 768px) {
+      .hero-stats {
+        grid-template-columns: repeat(3, 1fr);
+        max-width: 600px;
+      }
+    }
+
+    .section {
+      padding: var(--space-2xl) var(--space-md);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      margin-bottom: var(--space-xl);
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--color-accent);
+      margin-bottom: var(--space-sm);
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .section-desc {
+      color: var(--color-text-muted);
+      max-width: 540px;
+      margin-top: var(--space-sm);
+      font-size: 1.0625rem;
+      line-height: 1.7;
+    }
+
+    .services-grid {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 768px) {
+      .services-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .service-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+    }
+
+    .service-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .service-icon {
+      width: 48px;
+      height: 48px;
+      background-color: var(--color-accent-soft);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: var(--space-md);
+      font-size: 1.25rem;
+    }
+
+    .service-title {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--color-text);
+    }
+
+    .service-desc {
+      color: var(--color-text-muted);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+    }
+
+    .projects-section {
+      background-color: var(--color-bg-warm);
+      margin: 0 calc(-1 * var(--space-md));
+      padding: var(--space-2xl) var(--space-md);
+    }
+
+    .projects-section .section {
+      padding: 0;
+    }
+
+    .projects-grid {
+      display: grid;
+      gap: var(--space-md);
+    }
+
+    @media (min-width: 768px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .project-card {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      background-color: var(--color-dark);
+      aspect-ratio: 4/3;
+    }
+
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+      opacity: 0.9;
+    }
+
+    .project-card:hover img {
+      transform: scale(1.05);
+      opacity: 0.7;
+    }
+
+    .project-info {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: var(--space-lg);
+      background: linear-gradient(transparent, rgba(26,26,26,0.85));
+      color: #fff;
+      transform: translateY(8px);
+      opacity: 0.9;
+      transition: transform 0.4s ease, opacity 0.4s ease;
+    }
+
+    .project-card:hover .project-info {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .project-tag {
+      font-size: 0.6875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-accent-soft);
+      margin-bottom: 0.375rem;
+    }
+
+    .project-name {
+      font-family: var(--font-heading);
+      font-size: 1.625rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    .experience-layout {
+      display: grid;
+      gap: var(--space-xl);
+      align-items: center;
+    }
+
+    @media (min-width: 768px) {
+      .experience-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .experience-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+      position: relative;
+    }
+
+    .experience-images img {
+      border-radius: var(--radius-lg);
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .experience-images img:first-child {
+      transform: translateY(-20px);
+    }
+
+    .experience-images img:last-child {
+      transform: translateY(20px);
+    }
+
+    .experience-content h3 {
+      font-family: var(--font-heading);
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: var(--space-md);
+    }
+
+    .experience-content h3 em {
+      font-style: italic;
+      color: var(--color-accent);
+    }
+
+    .experience-content p {
+      color: var(--color-text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      margin-bottom: var(--space-md);
+    }
+
+    .experience-features {
+      display: grid;
+      gap: var(--space-sm);
+      margin-top: var(--space-lg);
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+    }
+
+    .feature-bullet {
+      width: 6px;
+      height: 6px;
+      background-color: var(--color-accent);
+      border-radius: 50%;
+      margin-top: 0.6rem;
+      flex-shrink: 0;
+    }
+
+    .feature-text {
+      font-size: 0.9375rem;
+      color: var(--color-text-muted);
+      line-height: 1.6;
+    }
+
+    .reviews-section {
+      background-color: var(--color-dark);
+      margin: 0 calc(-1 * var(--space-md));
+      padding: var(--space-2xl) var(--space-md);
+      color: #fff;
+    }
+
+    .reviews-section .section-tag {
+      color: var(--color-accent-soft);
+    }
+
+    .reviews-section .section-title {
+      color: #fff;
+    }
+
+    .reviews-section .section-desc {
+      color: rgba(255,255,255,0.65);
+    }
+
+    .reviews-grid {
+      display: grid;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+
+    @media (min-width: 768px) {
+      .reviews-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .review-card {
+      background-color: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      transition: transform var(--transition), background-color var(--transition);
+    }
+
+    .review-card:hover {
+      transform: translateY(-4px);
+      background-color: rgba(255,255,255,0.07);
+    }
+
+    .review-stars {
+      color: #E8A838;
+      font-size: 0.875rem;
+      margin-bottom: var(--space-sm);
+      letter-spacing: 0.1em;
+    }
+
+    .review-text {
+      font-size: 1rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      margin-bottom: var(--space-md);
+      font-style: italic;
+    }
+
+    .review-author {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: rgba(255,255,255,0.5);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .reviews-cta {
+      margin-top: var(--space-xl);
+      text-align: center;
+    }
+
+    .reviews-cta p {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.9375rem;
+      margin-bottom: var(--space-sm);
+    }
+
+    .reviews-cta .btn-secondary {
+      color: #fff;
+      border-color: rgba(255,255,255,0.25);
+    }
+
+    .reviews-cta .btn-secondary:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+    }
+
+    .location-layout {
+      display: grid;
+      gap: var(--space-xl);
+      align-items: start;
+    }
+
+    @media (min-width: 768px) {
+      .location-layout {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .location-map {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      height: 100%;
+      min-height: 320px;
+    }
+
+    .location-map iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      border: 0;
+      filter: grayscale(20%) contrast(1.05);
+    }
+
+    .location-details h3 {
+      font-family: var(--font-heading);
+      font-size: 1.625rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .location-address {
+      color: var(--color-text-muted);
+      font-size: 1.0625rem;
+      line-height: 1.7;
+      margin-bottom: var(--space-lg);
+    }
+
+    .hours-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .hours-table tr {
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .hours-table td {
+      padding: 0.875rem 0;
+      font-size: 0.9375rem;
+    }
+
+    .hours-table td:first-child {
+      color: var(--color-text-muted);
+      width: 40%;
+    }
+
+    .hours-table td:last-child {
+      font-weight: 500;
+      text-align: right;
+    }
+
+    .hours-note {
+      margin-top: var(--space-md);
+      font-size: 0.875rem;
+      color: var(--color-accent);
+      font-weight: 500;
+    }
+
+    .contact-section {
+      background-color: var(--color-bg-warm);
+      margin: 0 calc(-1 * var(--space-md));
+      padding: var(--space-2xl) var(--space-md);
+    }
+
+    .contact-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .contact-section .section-title {
+      margin-bottom: var(--space-sm);
+    }
+
+    .contact-section .section-desc {
+      margin: 0 auto var(--space-xl);
+    }
+
+    .contact-grid {
+      display: grid;
+      gap: var(--space-md);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .contact-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .contact-card {
+      background-color: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .contact-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 32px rgba(0,0,0,0.05);
+    }
+
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      background-color: var(--color-accent-soft);
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto var(--space-sm);
+      font-size: 1.25rem;
+    }
+
+    .contact-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-text-muted);
+      margin-bottom: 0.375rem;
+    }
+
+    .contact-value {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--color-text);
+      word-break: break-word;
+    }
+
+    .contact-value a {
+      transition: color var(--transition);
+    }
+
+    .contact-value a:hover {
+      color: var(--color-accent);
+    }
+
+    .footer {
+      padding: var(--space-xl) var(--space-md) var(--space-lg);
+      max-width: 1200px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 600;
+      margin-bottom: var(--space-sm);
+    }
+
+    .footer-logo span {
+      color: var(--color-accent);
+    }
+
+    .footer-tagline {
+      color: var(--color-text-muted);
+      font-size: 0.9375rem;
+      margin-bottom: var(--space-md);
+    }
+
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: var(--space-md);
+      margin-bottom: var(--space-lg);
+    }
+
+    .footer-socials a {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all var(--transition);
+      color: var(--color-text-muted);
+    }
+
+    .footer-socials a:hover {
+      border-color: var(--color-accent);
+      color: var(--color-accent);
+      transform: translateY(-2px);
+    }
+
+    .footer-copy {
+      font-size: 0.8125rem;
+      color: var(--color-text-muted);
+      padding-top: var(--space-lg);
+      border-top: 1px solid var(--color-border);
+    }
+
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 99;
+      background-color: var(--color-surface);
+      border-top: 1px solid var(--color-border);
+      padding: 0.75rem var(--space-md);
+      display: flex;
+      gap: 0.75rem;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.06);
+    }
+
+    .sticky-cta .btn {
+      flex: 1;
+      padding: 0.875rem;
+      font-size: 0.875rem;
+    }
+
+    @media (min-width: 768px) {
+      .sticky-cta {
+        display: none;
+      }
+    }
+
+    .wa-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 98;
+      width: 56px;
+      height: 56px;
+      background-color: #25D366;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 16px rgba(37, 211, 102, 0.3);
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .wa-float:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 24px rgba(37, 211, 102, 0.4);
+    }
+
+    @media (max-width: 767px) {
+      .wa-float {
+        display: none;
+      }
+    }
+
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+
+    html {
+      scroll-padding-top: 80px;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="logo">estudio<span>.</span>te</a>
+      <div class="nav-links">
+        <a href="#servicios">Servicios</a>
+        <a href="#proyectos">Proyectos</a>
+        <a href="#showroom">Showroom</a>
+        <a href="#contacto">Contacto</a>
+      </div>
+      <a href="https://wa.me/541124079825" class="nav-cta" target="_blank" rel="noopener">Escribinos</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src="assets/hero.jpg" alt="Interior de loft con luz natural, madera y diseño contemporáneo" loading="eager">
+    </div>
+    <div class="hero-content">
+      <div class="hero-tag">Desde 2016 en Villa Crespo</div>
+      <h1 class="hero-title">
+        Diseñamos espacios<br>
+        que se <em>viven</em>
+      </h1>
+      <p class="hero-subtitle">
+        Arquitectura, mobiliario de diseño y un showroom-café en Thames 937. 
+        Transformamos casas, locales y oficinas en lugares con identidad.
+      </p>
+      <div class="hero-cta-group">
+        <a href="https://wa.me/541124079825" class="btn btn-primary" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          Consultar por WhatsApp
+        </a>
+        <a href="#proyectos" class="btn btn-secondary">Ver proyectos</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="stat-number">2.320</div>
+          <div class="stat-label">Reseñas en Google</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">9+</div>
+          <div class="stat-label">Años de trayectoria</div>
+        </div>
+        <div class="stat">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Locales en CABA</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="servicios">
+    <div class="section-header text-center mx-auto">
+      <div class="section-tag">Qué hacemos</div>
+      <h2 class="section-title">Tres maneras de <em>habitar</em> mejor</h2>
+      <p class="section-desc mx-auto">
+        Somos un estudio integral. Pensamos el espacio desde la estructura hasta el último detalle del mobiliario.
+      </p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card animate-on-scroll">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C25E3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M9 21v-6h6v6"/></svg>
+        </div>
+        <h3 class="service-title">Arquitectura</h3>
+        <p class="service-desc">
+          Proyectos residenciales y comerciales que integran naturaleza, luz y materiales auténticos. Diseñamos desde la primera línea hasta la entrega de llaves.
+        </p>
+      </div>
+      <div class="service-card animate-on-scroll delay-1">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C25E3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        <h3 class="service-title">Mobiliario de diseño</h3>
+        <p class="service-desc">
+          Muebles funcionales con estética contemporánea. Piezas pensadas para durar, fabricadas con materiales de calidad y atención al detalle.
+        </p>
+      </div>
+      <div class="service-card animate-on-scroll delay-2">
+        <div class="service-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#C25E3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><path d="M6 1v3"/><path d="M10 1v3"/><path d="M14 1v3"/></svg>
+        </div>
+        <h3 class="service-title">Showroom & Café</h3>
+        <p class="service-desc">
+          Vení a Thames 937 a conocer nuestros muebles en persona, tomar un café en <strong>cafe.te</strong> y charlar con nuestro equipo sobre tu proyecto.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="projects-section" id="proyectos">
+    <div class="section">
+      <div class="section-header">
+        <div class="section-tag">Portfolio</div>
+        <h2 class="section-title">Proyectos que hablan<br>por sí <em>solos</em></h2>
+        <p class="section-desc">
+          Una selección de obras recientes que muestran nuestra mirada: espacios honestos, materiales nobles y una fuerte conexión con quienes los habitan.
+        </p>
+      </div>
+      <div class="projects-grid">
+        <div class="project-card animate-on-scroll">
+          <img src="assets/project1.jpg" alt="Proyecto Awada - Interior moderno con grandes ventanales y madera" loading="lazy">
+          <div class="project-info">
+            <div class="project-tag">Residencial</div>
+            <div class="project-name">Casa Awada</div>
+          </div>
+        </div>
+        <div class="project-card animate-on-scroll delay-1">
+          <img src="assets/project2.jpg" alt="Proyecto Cheeky Unicenter - Espacio comercial con diseño contemporáneo" loading="lazy">
+          <div class="project-info">
+            <div class="project-tag">Comercial</div>
+            <div class="project-name">Cheeky Unicenter</div>
+          </div>
+        </div>
+        <div class="project-card animate-on-scroll delay-2">
+          <img src="assets/project3.jpg" alt="Proyecto Windbells - Casa con jardín y arquitectura moderna" loading="lazy">
+          <div class="project-info">
+            <div class="project-tag">Residencial</div>
+            <div class="project-name">Windbells</div>
+          </div>
+        </div>
+        <div class="project-card animate-on-scroll delay-3">
+          <img src="assets/project4.jpg" alt="Proyecto El Camarín - Espacio boutique con detalles cuidados" loading="lazy">
+          <div class="project-info">
+            <div class="project-tag">Boutique</div>
+            <div class="project-name">El Camarín</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="showroom">
+    <div class="experience-layout">
+      <div class="experience-images animate-on-scroll">
+        <img src="assets/showroom.jpg" alt="Showroom de estudio.te con muebles de diseño expuestos" loading="lazy">
+        <img src="assets/cafe.jpg" alt="Café interior de cafe.te en Thames 937" loading="lazy">
+      </div>
+      <div class="experience-content animate-on-scroll delay-1">
+        <div class="section-tag">La experiencia</div>
+        <h3>
+          Un lugar para <em>ver, tocar<br>y tomar un café</em>
+        </h3>
+        <p>
+          Nuestro showroom en Villa Crespo no es solo una tienda de muebles: es un espacio de encuentro. 
+          Podés recorrer las piezas, sentir los materiales y mientras tanto disfrutar de un buen café en <strong>cafe.te</strong>, 
+          nuestro rincón dentro del estudio.
+        </p>
+        <p>
+          Es la forma más honesta de conocer nuestro trabajo: sin pantallas de por medio, 
+          con las manos sobre la madera y los ojos puestos en el detalle.
+        </p>
+        <div class="experience-features">
+          <div class="feature-item">
+            <div class="feature-bullet"></div>
+            <div class="feature-text">Muebles de diseño exhibidos en ambientes reales</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet"></div>
+            <div class="feature-text">Atención personalizada para proyectos a medida</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet"></div>
+            <div class="feature-text">Café de especialidad en el corazón del estudio</div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-bullet"></div>
+            <div class="feature-text">Estacionamiento disponible en la zona</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="reviews-section">
+    <div class="section">
+      <div class="section-header text-center mx-auto">
+        <div class="section-tag">Opiniones</div>
+        <h2 class="section-title">Más de 2.000 personas<br>nos <em>recomendaron</em></h2>
+        <p class="section-desc mx-auto">
+          En Google Maps sumamos 2.320 reseñas con una calificación de 4.3/5. 
+          Es la mejor prueba de que lo que hacemos, lo hacemos bien.
+        </p>
+      </div>
+      <div class="reviews-grid">
+        <div class="review-card animate-on-scroll">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Un lugar hermoso para visitar en Villa Crespo. Los muebles son de una calidad increíble y el café delicioso. Se nota que hay un equipo que ama lo que hace."</p>
+          <div class="review-author">— Visitante en Google Maps</div>
+        </div>
+        <div class="review-card animate-on-scroll delay-1">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Excelente atención y muy buenos diseños. Compré un sillón y una mesa ratona, ambos con un acabado impecable. El showroom es una experiencia en sí misma."</p>
+          <div class="review-author">— Cliente en Google Maps</div>
+        </div>
+        <div class="review-card animate-on-scroll delay-2">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Contraté el estudio para remodelar mi departamento y el resultado superó todas las expectativas. Profesionales, creativos y cumplidores con los tiempos."</p>
+          <div class="review-author">— Cliente en Google Maps</div>
+        </div>
+      </div>
+      <div class="reviews-cta animate-on-scroll">
+        <p>¿Ya nos visitaste? Dejanos tu opinión.</p>
+        <a href="https://www.google.com/maps/place/Estudio+Te/@-34.5992,-58.4423,17z" class="btn btn-secondary" target="_blank" rel="noopener">Ver en Google Maps</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ubicacion">
+    <div class="section-header text-center mx-auto">
+      <div class="section-tag">Dónde estamos</div>
+      <h2 class="section-title">Thames 937, <em>Villa Crespo</em></h2>
+      <p class="section-desc mx-auto">
+        En el corazón de uno de los barrios con más onda de Buenos Aires. 
+        A metros de Av. Córdoba y con fácil acceso en transporte público.
+      </p>
+    </div>
+    <div class="location-layout animate-on-scroll">
+      <div class="location-map">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.0679!2d-58.4445!3d-34.5992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca7fd5f0c4b1%3A0x7e0c5e5e5e5e5e5e!2sThames%20937%2C%20C1414%20DF%2C%20Buenos%20Aires!5e0!3m2!1ses!2sar!4v1600000000000!5m2!1ses!2sar" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+      <div class="location-details">
+        <h3>Horarios de atención</h3>
+        <p class="location-address">
+          Thames 937, C1414 DF<br>
+          Villa Crespo, CABA, Argentina
+        </p>
+        <table class="hours-table">
+          <tr>
+            <td>Lunes a viernes</td>
+            <td>09:00 — 19:30</td>
+          </tr>
+          <tr>
+            <td>Sábados</td>
+            <td>10:30 — 16:00</td>
+          </tr>
+          <tr>
+            <td>Domingos</td>
+            <td>Cerrado</td>
+          </tr>
+        </table>
+        <p class="hours-note">
+          El café abre en los mismos horarios. 
+          Los proyectos de arquitectura se atienden con cita previa.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-section" id="contacto">
+    <div class="contact-inner">
+      <div class="section-tag">Contacto</div>
+      <h2 class="section-title">Empecemos a <em>hablar</em></h2>
+      <p class="section-desc">
+        Ya sea que tengas un proyecto en mente o simplemente quieras pasar a conocernos, 
+        estamos acá para ayudarte.
+      </p>
+      <div class="contact-grid">
+        <div class="contact-card animate-on-scroll">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C25E3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="contact-label">Teléfono</div>
+          <div class="contact-value">
+            <a href="tel:+541173654504">+54 11 7365-4504</a>
+          </div>
+        </div>
+        <div class="contact-card animate-on-scroll delay-1">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C25E3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">
+            <a href="mailto:info@estudiote.com.ar">info@estudiote.com.ar</a>
+          </div>
+        </div>
+        <div class="contact-card animate-on-scroll delay-2">
+          <div class="contact-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#C25E3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="contact-label">WhatsApp</div>
+          <div class="contact-value">
+            <a href="https://wa.me/541124079825" target="_blank" rel="noopener">+54 11 2407-9825</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-logo">estudio<span>.</span>te</div>
+    <p class="footer-tagline">Arquitectura, mobiliario y experiencia en Villa Crespo</p>
+    <div class="footer-socials">
+      <a href="https://instagram.com/estudiote.com.ar" target="_blank" rel="noopener" aria-label="Instagram de estudio.te">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      </a>
+      <a href="https://instagram.com/estudiote.cafe" target="_blank" rel="noopener" aria-label="Instagram de cafe.te">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><path d="M6 1v3"/><path d="M10 1v3"/><path d="M14 1v3"/></svg>
+      </a>
+      <a href="https://wa.me/541124079825" target="_blank" rel="noopener" aria-label="WhatsApp">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </a>
+    </div>
+    <p class="footer-copy">
+      © 2024 estudio.te — Thames 937, Villa Crespo, CABA<br>
+      <small>Sitio demo construido para mostrar el potencial de una web moderna.</small>
+    </p>
+  </footer>
+
+  <div class="sticky-cta">
+    <a href="tel:+541173654504" class="btn btn-secondary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      Llamar
+    </a>
+    <a href="https://wa.me/541124079825" class="btn btn-primary" target="_blank" rel="noopener">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+
+  <a href="https://wa.me/541124079825" class="wa-float" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    const observerOptions = {
+      root: null,
+      rootMargin: '0px',
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
